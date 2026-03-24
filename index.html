@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library</title>
+</head>
+<body>
+
+<h1>Library Books</h1>
+<button onclick="loadBooks()">Load Books</button>
+
+<ul id="bookList"></ul>
+
+<script>
+async function loadBooks() {
+    const response = await fetch("http://127.0.0.1:5000/books");
+    const data = await response.json();
+
+    const list = document.getElementById("bookList");
+    list.innerHTML = "";
+
+    data.forEach(book => {
+        const li = document.createElement("li");
+        li.textContent = 
+            book.Title + " by " + book.Author + 
+            " (" + book.Genre + ") - Copies: " + book.AvailableCopies;
+        list.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
